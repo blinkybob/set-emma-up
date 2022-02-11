@@ -3,6 +3,7 @@
 # shell script
 # local installation / new setup of laptop
 # 18.01.2022
+# Installations where user input is needed are at the end of the script, to keep it running more or less without user interaction
 
 # to-do: farben reinbringen für den output, ganzes apt glump wegloggen
 # nur relevanten output anzeigen
@@ -24,20 +25,28 @@ EC="\e[0m"
 echo -e "${GREEN}Updating OS...${EC}"
 sudo apt-get update && sudo apt-get upgrade -y
 
-# basic tools
+#timedatectl
+sudo timedatectl set-timezone Europe/Berlin
+
+# hostnamectl
+sudo hostnamectl set-hostname emma
+echo -e "${RED}HINT: change hostname in /etc/hosts manually!${EC}"
+
+# Installation basic tools
 echo -e "${GREEN}Installing basic tools...${EC}"
 sudo apt-get install -y snapd flameshot kazam kvmtool virt-viewer virt-manager spice-client-gtk spice-html5 spice-webdavd \
     spice-vdagent remmina tmux zsh git openvpn network-manager-openvpn network-manager-openvpn-gnome \
-    wireguard wireguard-dkms wireguard-tools firefox thunderbird filezilla \
-    shotwell p7zip-full p7zip-rar bat unzip ncdu nextcloud-desktop
+    wireguard wireguard-dkms wireguard-tools firefox thunderbird filezilla pinta \
+    shotwell p7zip-full p7zip-rar bat unzip ncdu flatpak nextcloud-desktop
 
-# install docker
+# Installation docker
 sudo apt-get install -y docker.io docker-compose
 
-# Download and install Postman
+# Download and installation Postman
 echo -e "${GREEN}Downloading and installing Postman...${EC}"
 curl https://dl.pstmn.io/download/latest/linux64 -o postman-latest.tar.gz
 tar -xf postman-latest.tar.gz -C /home/"$(whoami)"/tools/
+
 
 # install webex Teams
 # install MS Teams
@@ -99,12 +108,8 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 echo -e "\n...End of Oh-My-Zsh installation."
 
-#timedatectl
-sudo timedatectl set-timezone Europe/Berlin
-
-# hostnamectl
-sudo hostnamectl set-hostname emma
-echo -e "${RED}HINT: change hostname in /etc/hosts manually${EC}"
+# Download and installation OWASP ZAP
+wget https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2_11_1_unix.sh -O zap.sh && sudo bash zap.sh && remove zap.sh
 
 #dotfiles
 
