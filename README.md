@@ -19,8 +19,6 @@ sudo bash setup.sh
 ## To Do
 * logging
 * suppress output to stdout except errors and status messages
-* Check why balena-etcher is not installed properly after adding the repo
 * add parameters so the user can choose between different installation groups (basic, work, game, whatever)
-* check why reboot not working
 * minimize needed user interaction
 * 
