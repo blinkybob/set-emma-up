@@ -6,15 +6,14 @@
 # Installations where user input is needed are at the end of the script, to keep it running more or less without user interaction
 
 # to-do: farben reinbringen für den output, ganzes apt glump wegloggen
-# nur relevanten output anzeigen
 # ubuntu os codename etc. als variable für etcher input oder anderes zeug!!!
 
 # Vars
-DISTRO=ubuntu
+DISTROBASE=ubuntu
 CODENAME=impish
 VERSION=21.10
 #WORKDIR=/home/"$(whoami)"/
-mkdir -p /home/"$(whoami)"/tools/
+mkdir -p /home/"$(whoami)"/tools
 
 # Colors
 RED="\e[31m"
@@ -57,12 +56,11 @@ sudo usermod -aG wireshark "$(whoami)"
 
 # gnome extensions
 sudo apt-get install -y gnome-shell-extensions
-echo "not possible to install the extensions itself via CLI script"
+echo "not possible to install the extensions via CLI script"
 
 # balena etcher
 echo -e "${GREEN}Adding Etcher repo...${EC}"
-curl -1sLf 'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
-    distro=$DISTRO version=$VERSION codename=$CODENAME sudo -E bash
+curl -1sLf 'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' | distro=$DISTROBASE version=$VERSION codename=$CODENAME sudo -E bash
 
 echo -e "${GREEN}Installing Etcher...${EC}"
 sudo apt-get update && sudo apt-get install -y balena-etcher-electron
@@ -94,11 +92,11 @@ sudo apt-get install -y sublime-text
 # install virtualbox
 
 echo -e "${GREEN}Installing VirtualBox...${EC}"
-sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian impish contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+sudo sh -c 'echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian eoan contrib" >> /etc/apt/sources.list.d/virtualbox.list'
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 sudo apt-get update
-sudo apt-get install -y virtualbox
+sudo apt-get install -y virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-guest-utils
 sudo usermod -a -G vboxusers "$(whoami)"
 
 # oh my zsh
@@ -111,22 +109,15 @@ echo -e "\n...End of Oh-My-Zsh installation."
 # Download and installation OWASP ZAP
 wget https://github.com/zaproxy/zaproxy/releases/download/v2.11.1/ZAP_2_11_1_unix.sh -O zap.sh && sudo bash zap.sh && remove zap.sh
 
-#dotfiles
-
-# Postman dotfile?
-
 #tmux config files and plugins
 sudo apt-get install -y tmux-plugin-manager
 
+#dotfiles
 echo -e "${RED}HINT: Copying tmux dotfiles and plugin directory...${EC}"
 cp files/.tmux.conf /home/"$(whoami)"/.tmux.conf
 cp -r files/.tmux /home/"$(whomai)"/.tmux
 
-echo -e "${GREEN}Installation ready...Press Y to reboot or N to reboot later!!!${EC}\n"
-read -r input 
+cp files/.bash_aliases /home/"$(whoami)"/
 
-if [ "$input" == y ]
-    then sudo reboot
-else
-    exit 0
-fi
+
+echo -e "${RED}Installation finished...Please reboot the system!!!${EC}\n"
