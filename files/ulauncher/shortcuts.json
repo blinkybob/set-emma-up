@@ -1,0 +1,42 @@
+{
+    "dc755b3f-f328-4dd8-a127-4d4f451abb56": {
+        "id": "dc755b3f-f328-4dd8-a127-4d4f451abb56",
+        "name": "Google Search",
+        "keyword": "g",
+        "cmd": "https://google.com/search?q=%s",
+        "icon": "/usr/share/ulauncher/media/google-search-icon.png",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1611045182.5247247
+    },
+    "e822d48f-9a58-4b69-9381-3198f8b936b9": {
+        "id": "e822d48f-9a58-4b69-9381-3198f8b936b9",
+        "name": "Stack Overflow",
+        "keyword": "so",
+        "cmd": "http://stackoverflow.com/search?q=%s",
+        "icon": "/usr/share/ulauncher/media/stackoverflow-icon.svg",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1611045182.5248203
+    },
+    "cc8a121c-b86e-4c60-a09d-78b5bf7f8157": {
+        "id": "cc8a121c-b86e-4c60-a09d-78b5bf7f8157",
+        "name": "Wikipedia",
+        "keyword": "wiki",
+        "cmd": "https://de.wikipedia.org/wiki/%s",
+        "icon": "/usr/share/ulauncher/media/wikipedia-icon.png",
+        "is_default_search": true,
+        "run_without_argument": false,
+        "added": 1611045182.5248797
+    },
+    "577af526-67c8-40ef-a47e-910ba5322698": {
+        "id": "577af526-67c8-40ef-a47e-910ba5322698",
+        "name": "cpelab",
+        "keyword": "cpelab",
+        "cmd": "xdg-open /home/michi/sec/1_Project/CPE/cpelab/Labor",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1616060307.7255356
+    }
+}
