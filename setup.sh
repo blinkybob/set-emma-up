@@ -7,6 +7,8 @@
 # 28.04.2022 - lots of changes, 
 
 # Usage hint: choose your distro, codename, etc. in the vars section
+# to do: change repo to europe/german one !?
+
 
 # Vars
 DISTROBASE=ubuntu
@@ -16,6 +18,17 @@ CODENAME=jammy
 VERSION=22.04
 #WORKDIR=/home/"$(whoami)"/
 mkdir -p /home/"$(whoami)"/tools
+
+# List of gnome shell extensions
+https://extensions.gnome.org/extension/3628/arcmenu/
+https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/
+https://extensions.gnome.org/extension/3724/net-speed-simplified/
+https://extensions.gnome.org/extension/905/refresh-wifi-connections/
+https://extensions.gnome.org/extension/906/sound-output-device-chooser/
+
+#To-Do:
+# install https://github.com/brunelli/gnome-shell-extension-installer
+# install the gonme extensions with its ID -> own file
 
 # Colors
 RED="\e[31m"
@@ -28,6 +41,9 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 #timedatectl
 sudo timedatectl set-timezone Europe/Berlin
+
+# set timeformat gnome interface
+gsettings set org.gnome.desktop.interface clock-format '24h'
 
 # hostnamectl
 sudo hostnamectl set-hostname emma
@@ -128,7 +144,8 @@ fi
 #echo -e "${GREEN}Installing Snap Spotify...${EC}"
 #sudo snap install spotify
 echo -e "${GREEN}Installing snap VSCodium...${EC}"
-sudo snap install codium --classic
+#sudo snap install codium --classic
+#move codium to native installation
 echo -e "${GREEN}Installing snap telegram...${EC}"
 sudo snap install telegram-desktop
 
@@ -156,7 +173,7 @@ sudo sh -c 'echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/deb
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 sudo apt-get update
-sudo apt-get install -y virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-guest-utils
+sudo apt-get install --assume-yes virtualbox virtualbox-dkms virtualbox-ext-pack virtualbox-guest-utils
 sudo usermod -a -G vboxusers "$(whoami)"
 
 # oh my zsh
@@ -176,8 +193,8 @@ sudo apt-get install -y tmux-plugin-manager
 
 # tmux
 echo -e "${RED}HINT: Copying tmux dotfiles and plugin directory...${EC}"
-cp files/.tmux.conf /home/"$(whoami)"/.tmux.conf
-cp -r files/.tmux /home/"$(whoami)"/.tmux
+cp files/.tmux.conf /home/"$(whoami)"/
+mkdir -p /home/"$(whoami)"/.tmux && cp -r files/.tmux/* /home/"$(whoami)"/.tmux/
 # bash aliases
 cp files/.bash_aliases /home/"$(whoami)"/
 
